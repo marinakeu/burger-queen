@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginButton from './components/LoginButton';
+import logo from '../../assets/img/logo.png';
 import firebase from '../firebaseConfig';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
@@ -38,6 +39,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
+        <img src={logo} alt="Logo" />;
         <input value={this.state.email}
           placeholder="email"
           onChange={(e) => this.handleChange(e, "email")} />
