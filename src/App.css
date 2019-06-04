@@ -32,6 +32,11 @@
   border: white 1px solid;
 }
 
+.Tab-box {
+  padding: 3rem 3rem;
+  height: 20.5rem;
+}
+
 a {
   color: white;
   font-weight: bold;
@@ -44,4 +49,8 @@ a {
   font-size: 1.2rem;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.Grey-text {
+  color: grey;
 }

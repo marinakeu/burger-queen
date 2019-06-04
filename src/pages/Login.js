@@ -1,11 +1,9 @@
 import React from 'react';
-import LoginButton from './components/LoginButton';
 import logo from '../assets/img/logo.png';
 import firebase from '../firebaseConfig';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Button, Form, Container, Modal, ButtonToolbar, Tabs, Tab, Nav } from 'react-bootstrap';
-import MyVerticallyCenteredModal from './components/MyVerticallyCenteredModal';
+import { Button, Form, Container, Tabs, Tab} from 'react-bootstrap';
 
 const firebaseAppAuth = firebase.auth();
 
@@ -14,8 +12,8 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      senha: "",
-
+      password: "",
+      role: ""
     };
   }
 
@@ -26,14 +24,22 @@ class Login extends React.Component {
   }
 
   createUser = () => {
-    this.props.createUserWithEmailAndPassword(this.state.email, this.state.senha);
+    if (this.state.role === "Salão" || this.state.role === "Cozinha") {
+      this.props.createUserWithEmailAndPassword(this.state.email, this.state.password);
 
     console.log(this.state.email);
-    console.log(this.state.senha);
+    console.log(this.state.password);
+    console.log(this.state.role);
+    console.log(this.props.user.uid);
+    } else {
+      alert('insira');
+    }
+    
+    
   };
 
   signIn = () => {
-    this.props.signInWithEmailAndPassword(this.state.email, this.state.senha)
+    this.props.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         console.log(this.props);
         alert("uhul");
@@ -47,24 +53,45 @@ class Login extends React.Component {
           <img className="Logo-img" src={logo} alt="Logo" />
           <div>
             <Tabs className="Display-flex" defaultActiveKey="profile" id="uncontrolled-tab-example">
-              <Tab className="White-border" eventKey="home" title="LOGIN">
+              <Tab className="White-border Tab-box" eventKey="profile" title="LOGIN">
                 <Form>
-                  <Form.Group controlId="formBasicEmail">
+                  <Form.Group controlId="formBasicEmailLogin">
                     <Form.Control size="lg" value={this.state.email} type="email"
                       placeholder="e-mail"
                       onChange={(e) => this.handleChange(e, "email")} />
                   </Form.Group>
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Control size="lg" value={this.state.senha} type="password"
+                  <Form.Group controlId="formBasicPasswordLogin">
+                    <Form.Control size="lg" value={this.state.password} type="senha"
                       placeholder="senha"
-                      onChange={(e) => this.handleChange(e, "senha")} />
+                      onChange={(e) => this.handleChange(e, "password")} />
                   </Form.Group>
                 </Form>
-                <div className="Display-flex">
-                  <Button variant="light" size="lg" onClick={this.signIn}>Entrar</Button>
+                <div>
+                  <Button variant="dark" size="lg" onClick={this.signIn}>Entrar</Button>
                 </div>
               </Tab>
-              <Tab className="White-border" eventKey="profile" title="CADASTRO">
+              <Tab className="White-border Tab-box" eventKey="home" title="CADASTRO">
+                <Form>
+                  <Form.Group controlId="formBasicEmailSignUp">
+                    <Form.Control size="lg" value={this.state.email} type="email"
+                      placeholder="e-mail"
+                      onChange={(e) => this.handleChange(e, "email")} />
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPasswordSignUp">
+                    <Form.Control size="lg" value={this.state.senha} type="password"
+                      placeholder="senha"
+                      onChange={(e) => this.handleChange(e, "password")} />
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlSelect1">
+                    <Form.Control className="Grey-text" size="lg" as="select" 
+                    value={this.state.role}
+                    onChange={(e) => this.handleChange(e, "role")} >
+                      <option>escolha uma função</option>
+                      <option>Salão</option>
+                      <option>Cozinha</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Form>
                 <div>
                   <Button variant="dark" size="lg" onClick={this.createUser}>Cadastrar</Button>
                 </div>
