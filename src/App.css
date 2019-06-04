@@ -1,10 +1,11 @@
 .App-header {
-  background-color: #6e75a6;
+  background-color: #f45c5b;
   height: 100vh;
 }
 
 .Logo-img {
   width: 40%;
+  border-radius: 50%;
 }
 
 .Text-align {
@@ -25,4 +26,22 @@
 .White-lg-text {
   color: white;
   font-size: 1.2rem;
+}
+
+.White-border{
+  border: white 1px solid;
+}
+
+a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-tabs .nav-link.active {
+  color: #f45c5b;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
