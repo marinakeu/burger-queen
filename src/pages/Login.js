@@ -12,7 +12,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.createUser = this.createUser.bind(this);
-    // this.handleRedirect = this.handleRedirect.bind(this);
     this.state = {
       displayName: "",
       email: "",
@@ -22,36 +21,38 @@ class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log('tem user');
+        console.log(user.uid);       
+
+        // const newState = this.state;
+        // newState.isLoggedIn = true;
+        // this.setState(newState);
+        // console.log(this.state);
+      } else {
+        console.log("User is signed out.")
+      }
+    });
+  }
+
   handleChange = (event, element) => {
     const newState = this.state;
     newState[element] = event.target.value
     this.setState(newState);
   }
 
-//   handleRedirect(user) {
-// console.log('oi')
-// console.log(user.uid);
-// this.setState({isLoggedIn: true});
-//   }
-
   createUser() {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
       this.props.createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.displayName)
-      console.log(this.props);
-      console.log(this.props.user.uid)
-      // database.collection("users").doc(uid).update({
-      //   displayName: 'marina',
-      //   role: 'Cozinha'
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          console.log('tem user');      
-          // handleRedirect(user);             
+      console.log(this.state)
 
-        } else {
-          console.log("User is signed out.")
-        }
-      });
-      
+      // database.collection("users").doc(user.uid).update({
+        //   displayName: this.state.displayName,
+        //   role: this.state.role
+        // })
+
     } else {
       alert('insira');
     }
@@ -65,9 +66,19 @@ class Login extends React.Component {
       });
   };
 
+  signOut = () => {
+    firebase.auth().signOut().then(function() {
+      console.log("Sign-out successful");
+    }).catch(function(error) {
+      console.log("An error happened");
+    });
+    
+  }
+
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
-   
+
+
+
     return (
       <div>
         <Container className="Text-align Display-flex Full-size">
@@ -124,9 +135,8 @@ class Login extends React.Component {
               </Tab>
             </Tabs>
           </div>
-        </Container>        
-        {/* {isLoggedIn ? <Redirect to="/Salao"/> : <span>oi</span>} */}
-    
+        </Container>
+        <Button variant="dark" size="lg" onClick={this.signOut}>Cadastrar</Button>
       </div >
     );
   }
