@@ -12,7 +12,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.createUser = this.createUser.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this);
+    // this.handleRedirect = this.handleRedirect.bind(this);
     this.state = {
       displayName: "",
       email: "",
@@ -28,11 +28,11 @@ class Login extends React.Component {
     this.setState(newState);
   }
 
-  handleRedirect(user) {
-console.log('oi')
-console.log(user.uid);
-this.setState({isLoggedIn: true});
-  }
+//   handleRedirect(user) {
+// console.log('oi')
+// console.log(user.uid);
+// this.setState({isLoggedIn: true});
+//   }
 
   createUser() {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
@@ -45,7 +45,7 @@ this.setState({isLoggedIn: true});
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           console.log('tem user');      
-          handleRedirect(user);             
+          // handleRedirect(user);             
 
         } else {
           console.log("User is signed out.")
@@ -125,7 +125,7 @@ this.setState({isLoggedIn: true});
             </Tabs>
           </div>
         </Container>        
-        {isLoggedIn ? <Redirect to="/Salao"/> : <span>oi</span>}
+        {/* {isLoggedIn ? <Redirect to="/Salao"/> : <span>oi</span>} */}
     
       </div >
     );

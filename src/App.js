@@ -13,7 +13,7 @@ function App() {
         <header className="App-header">
           <Route path="/" exact component={Login} />
           <Route path="/salao" component={Salao} />
-          <Route path="/salao" component={Cozinha} />
+          <Route path="/cozinha" component={Cozinha} />
         </header>
       </div>
     </Router>
