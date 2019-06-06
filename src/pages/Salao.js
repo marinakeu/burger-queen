@@ -24,6 +24,17 @@ class Salao extends React.Component {
     };
   }
 
+  // componentDidMount() {
+  //   firebase.auth().onAuthStateChanged(function (user) {
+  //     if (user) {
+  //       console.log('tem user');
+  //     } else {
+  //       console.log("User is signed out.")
+  //       this.props.history.push('/');
+  //     }
+  //   });
+  // }
+
   cliqueDaCompra = (item) => {
     const itemIndex = this.state.comprar.findIndex((produto) => {
       return produto.nome === item.nome;

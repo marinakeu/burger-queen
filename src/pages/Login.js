@@ -16,25 +16,8 @@ class Login extends React.Component {
       displayName: "",
       email: "",
       password: "",
-      role: "",
-      isLoggedIn: false
+      role: ""
     };
-  }
-
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        console.log('tem user');
-        console.log(user.uid);       
-
-        // const newState = this.state;
-        // newState.isLoggedIn = true;
-        // this.setState(newState);
-        // console.log(this.state);
-      } else {
-        console.log("User is signed out.")
-      }
-    });
   }
 
   handleChange = (event, element) => {
@@ -46,13 +29,20 @@ class Login extends React.Component {
   createUser() {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
       this.props.createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.displayName)
-      console.log(this.state)
+        .then(() => {
+          database.collection("users").doc(this.props.user.uid).set({
+            displayName: this.state.displayName,
+            role: this.state.role
+          })
 
-      // database.collection("users").doc(user.uid).update({
-        //   displayName: this.state.displayName,
-        //   role: this.state.role
-        // })
-
+          if (this.props.user) {
+            if (this.state.role === "Salão") {
+              this.props.history.push('/Salao');
+            } else {
+              this.props.history.push('/Cozinha');
+            }
+          };
+        })
     } else {
       alert('insira');
     }
@@ -62,23 +52,29 @@ class Login extends React.Component {
     this.props.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         console.log(this.props);
-        alert("uhul");
+        if (this.props.user) {
+          database.collection("users").doc(this.props.user.uid).get()
+          .then((doc) => {
+            let role = doc.data().role;
+            if (role === "Salão") {
+              this.props.history.push('/Salao');
+            } else {
+              this.props.history.push('/Cozinha');
+            }
+          })          
+        };
       });
   };
 
   signOut = () => {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
       console.log("Sign-out successful");
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log("An error happened");
     });
-    
   }
 
   render() {
-
-
-
     return (
       <div>
         <Container className="Text-align Display-flex Full-size">
