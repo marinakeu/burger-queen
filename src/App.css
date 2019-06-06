@@ -1,6 +1,7 @@
 .App-header {
   background-color: #f45c5b;
   height: 100vh;
+  text-align: center;
 }
 
 .Logo-img {
@@ -52,4 +53,19 @@ a {
 
 .Grey-text {
   color: grey;
+}
+
+.red-bg {
+  background-color: #f45c5b;
+  height: 100vh;
+}
+
+.Logo-img-salao {
+  width: 8rem;
+  border-radius: 50%;
+  padding: 0.8rem;
+}
+
+.half-screen {
+  width: 50%;
 }

@@ -3,7 +3,7 @@ import './App.css';
 import Login from './pages/Login';
 import Salao from './pages/Salao';
 import Cozinha from './pages/Cozinha';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
 function App() {

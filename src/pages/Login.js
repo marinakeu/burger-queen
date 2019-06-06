@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../assets/img/logo.png';
 import firebase from '../firebaseConfig';
 import withFirebaseAuth from 'react-with-firebase-auth';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Button, Form, Container, Tabs, Tab } from 'react-bootstrap';
 
 const firebaseAppAuth = firebase.auth();
@@ -13,10 +12,12 @@ class Login extends React.Component {
     super(props);
     this.createUser = this.createUser.bind(this);
     this.state = {
-      displayName: "",
+      name: "",
+      role: "",
+      emailSignUp: "",
+      passwordSignUp: "",
       email: "",
-      password: "",
-      role: ""
+      password: ""
     };
   }
 
@@ -28,18 +29,18 @@ class Login extends React.Component {
 
   createUser() {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
-      this.props.createUserWithEmailAndPassword(this.state.email, this.state.password, this.state.displayName)
+      this.props.createUserWithEmailAndPassword(this.state.emailSignUp, this.state.passwordSignUp, this.state.name)
         .then(() => {
           database.collection("users").doc(this.props.user.uid).set({
-            displayName: this.state.displayName,
+            name: this.state.name,
             role: this.state.role
           })
 
           if (this.props.user) {
             if (this.state.role === "Salão") {
-              this.props.history.push('/Salao');
+              this.props.history.push('/salao');
             } else {
-              this.props.history.push('/Cozinha');
+              this.props.history.push('/cozinha');
             }
           };
         })
@@ -51,32 +52,23 @@ class Login extends React.Component {
   signIn = () => {
     this.props.signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        console.log(this.props);
         if (this.props.user) {
           database.collection("users").doc(this.props.user.uid).get()
-          .then((doc) => {
-            let role = doc.data().role;
-            if (role === "Salão") {
-              this.props.history.push('/Salao');
-            } else {
-              this.props.history.push('/Cozinha');
-            }
-          })          
+            .then((doc) => {
+              let role = doc.data().role;
+              if (role === "Salão") {
+                this.props.history.push('/salao');
+              } else {
+                this.props.history.push('/cozinha');
+              }
+            })
         };
       });
   };
 
-  signOut = () => {
-    firebase.auth().signOut().then(function () {
-      console.log("Sign-out successful");
-    }).catch(function (error) {
-      console.log("An error happened");
-    });
-  }
-
   render() {
     return (
-      <div>
+      <div className='red-bg'>
         <Container className="Text-align Display-flex Full-size">
           <img className="Logo-img" src={logo} alt="Logo" />
           <div>
@@ -89,7 +81,7 @@ class Login extends React.Component {
                       onChange={(e) => this.handleChange(e, "email")} />
                   </Form.Group>
                   <Form.Group controlId="formBasicPasswordLogin">
-                    <Form.Control size="lg" value={this.state.password} type="senha"
+                    <Form.Control size="lg" value={this.state.password} type="password"
                       placeholder="senha"
                       onChange={(e) => this.handleChange(e, "password")} />
                   </Form.Group>
@@ -101,19 +93,19 @@ class Login extends React.Component {
               <Tab className="White-border Tab-box" eventKey="home" title="CADASTRO">
                 <Form>
                   <Form.Group controlId="formBasicNameSignUp">
-                    <Form.Control size="lg" value={this.state.displayName} type="text"
+                    <Form.Control size="lg" value={this.state.name} type="text"
                       placeholder="nome"
-                      onChange={(e) => this.handleChange(e, "displayName")} />
+                      onChange={(e) => this.handleChange(e, "name")} />
                   </Form.Group>
                   <Form.Group controlId="formBasicEmailSignUp">
-                    <Form.Control size="lg" value={this.state.email} type="email"
+                    <Form.Control size="lg" value={this.state.emailSignUp} type="email"
                       placeholder="e-mail"
-                      onChange={(e) => this.handleChange(e, "email")} />
+                      onChange={(e) => this.handleChange(e, "emailSignUp")} />
                   </Form.Group>
                   <Form.Group controlId="formBasicPasswordSignUp">
-                    <Form.Control size="lg" value={this.state.senha} type="password"
+                    <Form.Control size="lg" value={this.state.passwordSignUp} type="password"
                       placeholder="senha"
-                      onChange={(e) => this.handleChange(e, "password")} />
+                      onChange={(e) => this.handleChange(e, "passwordSignUp")} />
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlSelect1">
                     <Form.Control className="Grey-text" size="lg" as="select"
@@ -132,7 +124,6 @@ class Login extends React.Component {
             </Tabs>
           </div>
         </Container>
-        <Button variant="dark" size="lg" onClick={this.signOut}>Cadastrar</Button>
       </div >
     );
   }
