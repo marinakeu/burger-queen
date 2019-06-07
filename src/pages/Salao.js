@@ -1,66 +1,67 @@
 import React from 'react';
 import firebase from '../firebaseConfig';
-import logo from '../assets/img/logo.png';
-import { Button, Tab, Tabs } from 'react-bootstrap';
+import logoVert from '../assets/img/logo-vertical.png';
+import trash from '../assets/img/trash.png'
+import { Button, Tab, Tabs, InputGroup, FormControl } from 'react-bootstrap';
 
 const produtos = [
   {
-    nome: "Café americano",
+    nome: "CAFÉ AMERICANO",
     preco: 5,
     tipo: "manhã"
   },
   {
-    nome: "Café com leite",
+    nome: "CAFÉ COM LEITE",
     preco: 7,
     tipo: "manhã"
   },
   {
-    nome: "Sanduíche de presunto e queijo",
+    nome: "SANDUÍCHE DE PRESUNTO E QUEIJO",
     preco: 10,
     tipo: "manhã"
   },
   {
-    nome: "Suco de fruta natural",
+    nome: "SUCO DE FRUTA NATURAL",
     preco: 7,
     tipo: "manhã"
   },
   {
-    nome: "Hambúrguer simples",
+    nome: "HAMBÚRGUER SIMPLES",
     preco: 10,
     tipo: "dia"
   },
   {
-    nome: "Hambúrguer duplo",
+    nome: "HAMBÚRGUER DUPLO",
     preco: 15,
     tipo: "dia"
   },
   {
-    nome: "Batata frita",
+    nome: "BATATA FRITA",
     preco: 5,
     tipo: "dia"
   },
   {
-    nome: "Anéis de cebola",
+    nome: "ANÉIS DE CEBOLA",
     preco: 5,
     tipo: "dia"
   },
   {
-    nome: "Água 500ml",
+    nome: "ÁGUA 500ml",
     preco: 5,
     tipo: "dia"
   },
   {
-    nome: "Água 750ml",
+    nome: "ÁGUA 750ml",
     preco: 7,
     tipo: "dia"
   },
   {
-    nome: "Bebida gaseificada 500ml	",
+    nome: "BEBIDA GASEIFICADA 500ml	",
     preco: 7,
     tipo: "dia"
   },
   {
-    nome: "Bebida gaseificada 750ml",
+    nome: "BEBIDA GASEIFICADA 750ml",
     preco: 10,
     tipo: "dia"
   }
@@ -137,6 +138,10 @@ class Salao extends React.Component {
     }
   }
 
+  sendOrder = () => {
+
+  }
+
   render() {
     console.log(this.state.comprar);
     const valorTotal = this.state.comprar.reduce((acc, cur) => {
@@ -144,58 +149,73 @@ class Salao extends React.Component {
     }, 0);
     return (
       <div>
-        <header className="header-salao">
-          <img className="Logo-img-salao" src={logo} alt="Logo" />
+        <header className="header-salao Display-flex-center">
+          <img className="Logo-img-salao" src={logoVert} alt="Logo" />
+          <Button className="btn-logout" variant="dark" onClick={this.signOut}>Sair</Button>
         </header>
-        <section className="Full-size Display-flex">
+        <section className="Display-flex-start">
           <div className='half-screen'>
 
-            <Tabs className="Display-flex" defaultActiveKey="profile" id="uncontrolled-tab-example">
-              <Tab className="White-border Tab-box" eventKey="profile" title="CAFÉ DA MANHÃ">
+            <Tabs className="Display-flex-center" defaultActiveKey="profile" id="uncontrolled-tab-example">
+              <Tab className="White-border Tab-box white-bg" eventKey="profile" title="CAFÉ DA MANHÃ">
                 {
-                  
+
                   produtos.map((produto, i) => {
                     return produto.tipo === 'manhã' ?
-                      <button key={i}
+                      <Button className="menu-btn" variant="info" key={i}
                         onClick={() => this.cliqueDaCompra(produto)}>
-                        {produto.nome}</button> : console.log()
+                        {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
                   })
-              }
+                }
               </Tab>
-              <Tab className="White-border Tab-box" eventKey="home" title="TARDE/NOITE">
-              {
+              <Tab className="White-border Tab-box white-bg" eventKey="home" title="TARDE/NOITE">
+                {
                   produtos.map((produto, i) => {
                     return produto.tipo === 'dia' ?
-                      <button key={i}
+                      <Button className="menu-btn" variant="info" key={i}
                         onClick={() => this.cliqueDaCompra(produto)}>
-                        {produto.nome}</button> : console.log()
+                        {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
                   })
-              }
+                }
               </Tab>
             </Tabs>
-
-            <Button variant="dark" size="lg" onClick={this.signOut}>Sair</Button>
           </div>
-          <div className='half-screen'>
-            <h1>Itens comprados</h1>
-            {
-              this.state.comprar.map((produto, i) => {
-                return <div key={i}>
-                  <p key={i}>{produto.nome} -
-            {produto.preco * produto.quantidade} - {produto.quantidade}</p>
-                  <button onClick={() => this.cliqueDeleta(produto)}></button>
-                </div>
-              })
-            }
-            < hr ></hr >
-            <h1>Total</h1>
-            <p>Valor total: {valorTotal}</p>
+          <div className='half-screen white-bg red-text'>
+            <InputGroup className="mb-3 margin-1">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon1" className="info-bg" >CLIENTE</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                placeholder=""
+                aria-label="client-name"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <div className="grid-container">
+              <p className="grid-p1 red-border-bottom red-border-right red-border-top">PRODUTO</p>
+              <p className="grid-p2 red-border-bottom red-border-right red-border-top">UN</p>
+              <p className="grid-p3 red-border-bottom red-border-right red-border-top">QTD</p>
+              <p className="grid-p4 red-border-bottom red-border-right red-border-top">TT</p>
+              <p className="grid-p5 red-border-bottom red-border-top">  </p>
+            </div>
+            {this.state.comprar.map((produto, i) => {
+              return <div key={i} className="grid-container red-border">
+                <p className="grid-p1 red-border-bottom red-border-right">{produto.nome}</p>
+                <p className="grid-p2 red-border-bottom red-border-right">R$ {produto.preco}</p>
+                <p className="grid-p3 red-border-bottom red-border-right">{produto.quantidade}</p>
+                <p className="grid-p4 red-border-bottom red-border-right">R$ {produto.preco * produto.quantidade}</p>
+                <p className="grid-p5 red-border-bottom"><button className="transparent-bg" onClick={() => this.cliqueDeleta(produto)}>
+                  <img className="Trash-img" src={trash} alt="trash-icon" /></button></p>
+              </div>
+            })}
+            <div className="Display-flex-center">
+              <Button variant="dark" onClick={this.sendOrder}>FECHAR PEDIDO</Button>
+              <p className="margin-1">TOTAL: R$ {valorTotal}</p>
+            </div>
           </div>
-
         </section>
-      </div >
+      </div>
     );
   }
 }
-
 export default Salao;
