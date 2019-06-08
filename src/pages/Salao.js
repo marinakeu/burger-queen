@@ -167,6 +167,7 @@ class Salao extends React.Component {
       .then(() => {
         database.collection("orders").doc(date).set({
           [hour]: {
+            id: hour,
             orderNumber: this.state.orderNumber,
             clientName: this.state.client,
             atendentName: this.state.atendentName,
@@ -191,12 +192,15 @@ class Salao extends React.Component {
     }, 0);
     return (
       <div>
-
-        <header className="header-salao Display-flex-space">
-          <div>
+          <header className="header-salao Display-flex-space">
+          <div className="width-33"></div>    
+          <div>               
+          <img className="Logo-img-salao width-33" src={logoVert} alt="Logo" />
           </div>
-          <img className="Logo-img-salao" src={logoVert} alt="Logo" />
-          <Button className="btn-logout" variant="dark" onClick={this.signOut}>SAIR</Button>
+          <div className="width-33">
+          <Button className="margin-0" variant="dark" onClick={this.allOrders}>TODOS OS PEDIDOS</Button>
+          <Button className="margin-0" variant="dark" onClick={this.signOut}>SAIR</Button>
+          </div>
 
         </header>
 

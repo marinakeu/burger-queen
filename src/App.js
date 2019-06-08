@@ -3,6 +3,7 @@ import './App.css';
 import Login from './pages/Login';
 import Salao from './pages/Salao';
 import Cozinha from './pages/Cozinha';
+import Pedidos from './pages/Pedidos';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" exact component={Login} />
           <Route path="/salao" component={Salao} />
           <Route path="/cozinha" component={Cozinha} />
+          <Route path="/pedidos" component={Pedidos} />
         </header>
       </div>
     </Router>
