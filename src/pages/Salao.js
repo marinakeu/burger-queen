@@ -4,6 +4,9 @@ import logoVert from '../assets/img/logo-vertical.png';
 import trash from '../assets/img/trash.png'
 import { Button, Tab, Tabs, InputGroup, FormControl } from 'react-bootstrap';
 
+const firebaseAppAuth = firebase.auth();
+const database = firebase.firestore();
+
 const produtos = [
   {
     nome: "CAFÉ AMERICANO",
@@ -70,8 +73,12 @@ const produtos = [
 class Salao extends React.Component {
   constructor(props) {
     super(props);
+    this.sendOrder = this.sendOrder.bind(this);
     this.state = {
-      comprar: []
+      comprar: [],
+      client: "",
+      atendentName: "",
+      orderNumber: 0
     };
   }
 
@@ -94,6 +101,7 @@ class Salao extends React.Component {
         console.log("User is signed out.");
       }
     });
+
   }
 
   cliqueDaCompra = (item) => {
@@ -138,12 +146,45 @@ class Salao extends React.Component {
     }
   }
 
-  sendOrder = () => {
+  handleChange = (event, element) => {
+    const newState = this.state;
+    newState[element] = event.target.value
+    this.setState(newState);
+  }
 
+  sendOrder = () => {
+    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
+    let hour = new Date().getTime();
+    let userId = firebaseAppAuth.currentUser.uid;
+    database.collection("users").doc(userId).get()
+      .then((doc) => {
+        let name = doc.data().name;
+        const newState = this.state;
+        newState.atendentName = name;
+        newState.orderNumber = this.state.orderNumber + 1;
+        this.setState(newState);
+      })
+      .then(() => {
+        database.collection("orders").doc(date).set({
+          [hour]: {
+            orderNumber: this.state.orderNumber,
+            clientName: this.state.client,
+            atendentName: this.state.atendentName,
+            order: this.state.comprar,
+            moment: new Date(),
+            ready: false
+          }
+        }, { merge: true })
+      })
+      .then(() => {
+        const newState = this.state;
+        newState.comprar = [];
+        newState.client = "";
+        this.setState(newState);
+      })
   }
 
   render() {
-    console.log(this.state.comprar);
     const valorTotal = this.state.comprar.reduce((acc, cur) => {
       return acc + (cur.quantidade * cur.preco)
     }, 0);
@@ -194,6 +235,8 @@ class Salao extends React.Component {
                 placeholder=""
                 aria-label="client-name"
                 aria-describedby="basic-addon1"
+                value={this.state.client}
+                onChange={(e) => this.handleChange(e, "client")}
               />
             </InputGroup>
             <div className="grid-container">
