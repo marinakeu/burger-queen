@@ -64,7 +64,7 @@ a {
 .header-salao {
   background-color: white;
   border-bottom: 3px solid #17a2b7;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; 
 }
 
 .Logo-img-salao {
@@ -181,7 +181,15 @@ a {
   border: none;
 }
 
+.Display-flex-space {
+  display: flex;
+  justify-content: space-around; 
+  align-items: center;
+}
+
 .btn-logout {
-  
+  margin: 1rem 0rem;
+  width: 7%;
+  height: 3%;
 }
 

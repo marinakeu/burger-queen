@@ -149,10 +149,15 @@ class Salao extends React.Component {
     }, 0);
     return (
       <div>
-        <header className="header-salao Display-flex-center">
+
+        <header className="header-salao Display-flex-space">
+          <div>
+          </div>
           <img className="Logo-img-salao" src={logoVert} alt="Logo" />
-          <Button className="btn-logout" variant="dark" onClick={this.signOut}>Sair</Button>
+          <Button className="btn-logout" variant="dark" onClick={this.signOut}>SAIR</Button>
+
         </header>
+
         <section className="Display-flex-start">
           <div className='half-screen'>
 
@@ -195,7 +200,7 @@ class Salao extends React.Component {
               <p className="grid-p1 red-border-bottom red-border-right red-border-top">PRODUTO</p>
               <p className="grid-p2 red-border-bottom red-border-right red-border-top">UN</p>
               <p className="grid-p3 red-border-bottom red-border-right red-border-top">QTD</p>
-              <p className="grid-p4 red-border-bottom red-border-right red-border-top">TT</p>
+              <p className="grid-p4 red-border-bottom red-border-top">TT</p>
               <p className="grid-p5 red-border-bottom red-border-top">  </p>
             </div>
             {this.state.comprar.map((produto, i) => {
@@ -203,7 +208,7 @@ class Salao extends React.Component {
                 <p className="grid-p1 red-border-bottom red-border-right">{produto.nome}</p>
                 <p className="grid-p2 red-border-bottom red-border-right">R$ {produto.preco}</p>
                 <p className="grid-p3 red-border-bottom red-border-right">{produto.quantidade}</p>
-                <p className="grid-p4 red-border-bottom red-border-right">R$ {produto.preco * produto.quantidade}</p>
+                <p className="grid-p4 red-border-bottom">R$ {produto.preco * produto.quantidade}</p>
                 <p className="grid-p5 red-border-bottom"><button className="transparent-bg" onClick={() => this.cliqueDeleta(produto)}>
                   <img className="Trash-img" src={trash} alt="trash-icon" /></button></p>
               </div>
