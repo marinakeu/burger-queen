@@ -172,7 +172,8 @@ class Salao extends React.Component {
             atendentName: this.state.atendentName,
             order: this.state.comprar,
             moment: new Date(),
-            ready: false
+            ready: false,
+            delivered: false
           }
         }, { merge: true })
       })

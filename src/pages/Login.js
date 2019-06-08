@@ -30,19 +30,21 @@ class Login extends React.Component {
   createUser() {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
       this.props.createUserWithEmailAndPassword(this.state.emailSignUp, this.state.passwordSignUp, this.state.name)
-        .then(() => {
-          database.collection("users").doc(this.props.user.uid).set({
-            name: this.state.name,
-            role: this.state.role
-          })
+        .then(resp => {
 
-          if (this.props.user) {
-            if (this.state.role === "Salão") {
-              this.props.history.push('/salao');
-            } else {
-              this.props.history.push('/cozinha');
-            }
-          };
+          if (resp) {
+            database.collection("users").doc(this.props.user.uid).set({
+              name: this.state.name,
+              role: this.state.role
+            })
+            .then(() => {
+              if (this.state.role === "Salão") {
+                this.props.history.push('/salao');
+              } else {
+                this.props.history.push('/cozinha');
+              }
+            })            
+          }
         })
     } else {
       alert('insira');
@@ -67,6 +69,10 @@ class Login extends React.Component {
   };
 
   render() {
+    if(this.props.error) {
+      alert(this.props.error);
+    }
+    
     return (
       <div>
         <Container className="Text-align Display-flex-center Full-size">
