@@ -186,6 +186,10 @@ class Salao extends React.Component {
       })
   }
 
+  deliver = () => {
+    this.props.history.push('/entregas');
+  }
+
   render() {
     const valorTotal = this.state.comprar.reduce((acc, cur) => {
       return acc + (cur.quantidade * cur.preco)
@@ -198,7 +202,7 @@ class Salao extends React.Component {
           <img className="Logo-img-salao width-33" src={logoVert} alt="Logo" />
           </div>
           <div className="width-33">
-          <Button className="margin-0" variant="dark" onClick={this.allOrders}>TODOS OS PEDIDOS</Button>
+          <Button className="margin-0" variant="dark" onClick={this.deliver}>ENTREGAS</Button>
           <Button className="margin-0" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
 

@@ -20,7 +20,7 @@ class Cozinha extends React.Component {
       .then((doc) => {
         let data = doc.data();
         const newState = this.state;
-        newState.orders = Object.values(data)
+        if(data) {newState.orders = Object.values(data)}; 
         this.setState(newState);
       })
 
@@ -28,7 +28,7 @@ class Cozinha extends React.Component {
       .onSnapshot((doc) => {
         let data = doc.data();
         const newState = this.state;
-        newState.orders = Object.values(data)
+        if(data) {newState.orders = Object.values(data)}; 
         this.setState(newState);
       });
   }

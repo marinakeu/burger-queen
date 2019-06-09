@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
 
-class Pedidos extends React.Component {
+class Entregas extends React.Component {
     constructor(props) {
         super(props);
         // this.createUser = this.createUser.bind(this);
@@ -34,9 +34,20 @@ class Pedidos extends React.Component {
             });
     }
 
+    cliqueEntregue = (item) => {
+        let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
+        console.log(item);
+        let orderId = item.id;
+        console.log(orderId);
+        database.collection("orders").doc(date).set({
+          [orderId]: {
+            delivered: true
+          }
+        }, { merge: true })
+      }
 
     goBack = () => {
-        this.props.history.push('/cozinha');
+        this.props.history.push('/salao');
     }
 
     signOut = () => {
@@ -68,20 +79,20 @@ class Pedidos extends React.Component {
                 <div className="Order-div red-text">
                     {
                         this.state.orders.map((order, i) => {
-                            return <div key={i} className="Order">
-                                <div className="Display-flex-space info-bg padding-1">
-                                    <p>Cliente: {order.clientName}</p>
-                                    <p>Nº: {order.orderNumber}</p>
-                                </div>
-                                {order.order.map((product, i) => {
-                                    return <div key={i}>
-                                        <p>{product.quantidade} {product.nome}</p>
+                            return order.ready & !order.delivered ?
+                                <div key={i} className="Order">
+                                    <div className="Display-flex-space info-bg padding-1">
+                                        <p>Cliente: {order.clientName}</p>
+                                        <p>Nº: {order.orderNumber}</p>
                                     </div>
-                                })}
-                                <p className="gray-p">PEDIDO {order.ready ? "PRONTO" : "PENDENTE"}
-                                    {order.delivered ? " E ENTREGUE" : ""}</p>
-
-                            </div>
+                                    {order.order.map((product, i) => {
+                                        return <div key={i}>
+                                            <p>{product.quantidade} {product.nome}</p>
+                                        </div>
+                                    })}
+                                    <Button className="margin-0" variant="dark" onClick={() => this.cliqueEntregue(order)}>
+                                        ENTREGUE</Button>
+                                </div> : console.log()
                         })
                     }
                 </div>
@@ -90,4 +101,4 @@ class Pedidos extends React.Component {
     }
 }
 
-export default Pedidos;
+export default Entregas;

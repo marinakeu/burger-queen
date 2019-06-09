@@ -232,3 +232,8 @@ a {
 .width-33 {
   width: 30vw;
 }
+
+.gray-p {
+  color: darkslategray;
+  font-size: 0.8rem;
+}

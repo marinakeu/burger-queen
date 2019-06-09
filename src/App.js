@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Salao from './pages/Salao';
 import Cozinha from './pages/Cozinha';
 import Pedidos from './pages/Pedidos';
+import Entregas from './pages/Entregas';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/salao" component={Salao} />
           <Route path="/cozinha" component={Cozinha} />
           <Route path="/pedidos" component={Pedidos} />
+          <Route path="/entregas" component={Entregas} />
         </header>
       </div>
     </Router>
