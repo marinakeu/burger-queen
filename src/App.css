@@ -1,21 +1,5 @@
-.App-header {
-  background-color: #f45c5b;
-  height: 100vh;
-  text-align: center;
-}
-
-.Logo-img {
-  width: 40%;
-  border-radius: 50%;
-}
-
-.Text-align {
-  text-align: center;
-}
-
-.Full-size {
-  height: 100vh;
-  width: 100vw;
+.Blue-border {
+  border-bottom: 3px solid #17a2b7;
 }
 
 .Display-flex-center {
@@ -30,84 +14,33 @@
   align-items: flex-start;  
 }
 
-.White-lg-text {
-  color: white;
-  font-size: 1.2rem;
+.Display-flex-space {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
 }
 
-.White-border{
-  border: white 1px solid;
-}
-
-.padding-3 {
-  padding: 3rem;
-}
-
+.Font-bold,
 a {
-  color: white;
   font-weight: bold;
+}
+
+.Font-size,
+a {
   font-size: 1.2rem;
 }
 
-.nav-tabs .nav-link.active {
-  color: #f45c5b;
-  font-weight: bold;
-  font-size: 1.2rem;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+.Full-size {
+  height: 100vh;
+  width: 100vw;
 }
 
 .Grey-text {
   color: grey;
 }
 
-.header-salao {
-  background-color: white;
-  border-bottom: 3px solid #17a2b7;
-  margin-bottom: 1rem; 
-}
-
-.Logo-img-salao {
-  width: 20rem;
-  margin: 0.8rem;
-  /* border: 1px solid blue; */
-  border-radius: 5%;
-}
-
-.half-screen {
-  width: 45%;
-}
-
-.menu-btn {
-  color: white;
-  font-weight: bold;
-  margin: 0.5rem;
-  /* background-color: aquamarine; */
-}
-
-.white-bg {
-  background-color: white;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.red-text {
-  color: #f45c5b;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.red-border-bottom{
-  margin: 0rem;
-  border-bottom: 1px solid #f45c5b;
-}
-
-.red-border-right {
-  border-right: 1px solid #f45c5b;
-}
-
-.red-border-top {
-  border-top: 1px solid #f45c5b;
+.Grey-dark-text {
+  color: darkslategray;
 }
 
 .grid-container {
@@ -153,67 +86,60 @@ a {
   grid-row: 1 / 2;
 }
 
-.margin-1 {
+.Half-screen {
+  width: 45%;
+}
+
+.Info-bg {
+  background-color: #17a2b7;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.Img-logo {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.Img-logo-salao {
+  width: 20rem;
+  margin: 0.8rem;
+  border-radius: 5%;
+}
+
+.Margin-05 {
+  margin: 0.5rem;
+}
+
+.Margin-bottom-1 {
+  margin-bottom: 1rem; 
+}
+
+.Margin-13 {
   margin: 1.3rem;
   max-width: 90%;
 }
 
-.info-bg {
-  background-color: #17a2b7;
-  color: white;
+.nav-tabs .nav-link.active {
+  color: #f45c5b;
   font-weight: bold;
   font-size: 1.2rem;
-}
-
-.red-bg {
-  background-color: #f45c5b;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.Trash-img {
-  width: 2rem;
-}
-
-.transparent-bg {
-  background-color: transparent;
-  border: none;
-}
-
-.Display-flex-space {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-}
-
-.Display-flex-end {
-  display: flex;
-  justify-content: flex-end; 
-  align-items: center;
-}
-
-.btn-logout {
-  margin: 1rem 0rem;
-  width: 7%;
-  height: 3%;
-}
-
-.Order-div {
-  display: flex;
-  justify-content: flex-start; 
-  align-items: flex-start;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0.5rem;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
 
 .Order {
   flex-flow: column;
   width: 23%;
-  background-color: white;
-  margin: 0.5rem;
   border-radius: 2%
+}
+
+.Order-container {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .Order p {
@@ -221,19 +147,66 @@ a {
   padding: 0.4rem;
 }
 
-.padding-1 {
+.Padding-3 {
+  padding: 3rem;
+}
+
+.Padding-02 {
   padding: 0.2rem;
 }
 
-.margin-0 {
-  margin: 0.5rem;
+.Padding-top-bottom-1 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-.width-33 {
+.Red-bg {
+  background-color: #f45c5b;
+}
+
+.Red-border-bottom{
+  margin: 0rem;
+  border-bottom: 1px solid #f45c5b;
+}
+
+.Red-border-right {
+  border-right: 1px solid #f45c5b;
+}
+
+.Red-border-top {
+  border-top: 1px solid #f45c5b;
+}
+
+.Red-text {
+  color: #f45c5b;
+}
+
+.Trash-img {
+  width: 2rem;
+}
+
+.Transparent-bg {
+  background-color: transparent;
+  border: none;
+}
+
+.Text-align {
+  text-align: center;
+}
+
+.Width-33 {
   width: 30vw;
 }
 
-.gray-p {
-  color: darkslategray;
-  font-size: 0.8rem;
+.White-bg {
+  background-color: white;
+}
+
+.White-border{
+  border: white 1px solid;
+}
+
+.White-text,
+a {
+  color: white;
 }

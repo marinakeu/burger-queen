@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Login from './pages/Login';
+import Home from './pages/Home';
 import Salao from './pages/Salao';
 import Cozinha from './pages/Cozinha';
 import Pedidos from './pages/Pedidos';
@@ -12,8 +12,8 @@ function App() {
   return (
     <Router>
       <div>
-        <header className="App-header">
-          <Route path="/" exact component={Login} />
+        <header className="Red-bg Text-align Full-size">
+          <Route path="/" exact component={Home} />
           <Route path="/salao" component={Salao} />
           <Route path="/cozinha" component={Cozinha} />
           <Route path="/pedidos" component={Pedidos} />

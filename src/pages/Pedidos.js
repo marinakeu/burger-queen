@@ -6,88 +6,81 @@ import { Button } from 'react-bootstrap';
 const database = firebase.firestore();
 
 class Pedidos extends React.Component {
-    constructor(props) {
-        super(props);
-        // this.createUser = this.createUser.bind(this);
-        this.state = {
-            orders: []
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      orders: []
+    };
+  }
 
-    componentDidMount() {
+  componentDidMount() {
+    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
+    database.collection("orders").doc(date).get()
+      .then((doc) => {
+        let data = doc.data();
+        const newState = this.state;
+        if (data) { newState.orders = Object.values(data) };
+        this.setState(newState);
+      })
+    database.collection("orders").doc(date)
+      .onSnapshot((doc) => {
+        let data = doc.data();
+        const newState = this.state;
+        if (data) { newState.orders = Object.values(data) };
+        this.setState(newState);
+      });
+  }
 
-        let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-        database.collection("orders").doc(date).get()
-            .then((doc) => {
-                let data = doc.data();
-                const newState = this.state;
-                if (data) { newState.orders = Object.values(data) };
-                this.setState(newState);
-            })
+  signOut = () => {
+    firebase.auth().signOut().then(function () {
+      console.log("Sign-out successful");
+    }).then(() => {
+      this.props.history.push('/');
+    })
+      .catch(function (error) {
+        console.log("An error happened");
+      });
+  }
 
-        database.collection("orders").doc(date)
-            .onSnapshot((doc) => {
-                let data = doc.data();
-                const newState = this.state;
-                if (data) { newState.orders = Object.values(data) };
-                this.setState(newState);
-            });
-    }
+  goBack = () => {
+    this.props.history.push('/cozinha');
+  }
 
-
-    goBack = () => {
-        this.props.history.push('/cozinha');
-    }
-
-    signOut = () => {
-        firebase.auth().signOut().then(function () {
-            console.log("Sign-out successful");
-        }).then(() => {
-            this.props.history.push('/');
-        })
-            .catch(function (error) {
-                console.log("An error happened");
-            });
-    }
-
-    render() {
-        console.log(this.state)
-        return (
-            <div>
-                <header className="header-salao Display-flex-space">
-                    <div className="width-33"></div>
-                    <div>
-                        <img className="Logo-img-salao width-33" src={logoVert} alt="Logo" />
-                    </div>
-                    <div className="width-33">
-                        <Button className="margin-0" variant="dark" onClick={this.goBack}>VOLTAR</Button>
-                        <Button className="margin-0" variant="dark" onClick={this.signOut}>SAIR</Button>
-                    </div>
-                </header>
-
-                <div className="Order-div red-text">
-                    {
-                        this.state.orders.map((order, i) => {
-                            return <div key={i} className="Order">
-                                <div className="Display-flex-space info-bg padding-1">
-                                    <p>Cliente: {order.clientName}</p>
-                                    <p>Nº: {order.orderNumber}</p>
-                                </div>
-                                {order.order.map((product, i) => {
-                                    return <div key={i}>
-                                        <p>{product.quantidade} {product.nome}</p>
-                                    </div>
-                                })}
-                                <p className="gray-p">PEDIDO {order.ready ? "PRONTO" : "PENDENTE"}
-                                    {order.delivered ? " E ENTREGUE" : ""}</p>
-
-                            </div>
-                        })
-                    }
+  render() {
+    console.log(this.state)
+    return (
+      <div>
+        <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
+          <div className="Width-33"></div>
+          <div>
+            <img className="Img-logo-salao Width-33" src={logoVert} alt="Logo" />
+          </div>
+          <div className="Width-33">
+            <Button className="Margin-05" variant="dark" onClick={this.goBack}>VOLTAR</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
+          </div>
+        </header>
+        <div className="Order-container Red-text Font-bold Margin-05">
+          {this.state.orders.map((order, i) => {
+            return <div key={i} className="Order White-bg Margin-05">
+              <div className="Display-flex-space Info-bg White-text Font-bold Padding-02">
+                <p>Cliente: {order.clientName}</p>
+                <p>Nº: {order.orderNumber}</p>
+              </div>
+              {order.order.map((product, i) => {
+                return <div key={i}>
+                  <p>{product.quantidade} {product.nome}</p>
                 </div>
-            </div >
-        );
-    }
+              })}
+              <p className="Grey-dark-text">PEDIDO {order.ready ? "PRONTO" : "PENDENTE"}
+                {order.delivered ? " E ENTREGUE" : ""}</p>
+
+            </div>
+          })}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Pedidos;

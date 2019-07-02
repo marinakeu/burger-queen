@@ -82,6 +82,22 @@ class Salao extends React.Component {
     };
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log('Usário logado');
+      } else {
+        console.log("User is signed out.");
+      }
+    });
+  }
+
+  handleChange = (event, element) => {
+    const newState = this.state;
+    newState[element] = event.target.value
+    this.setState(newState);
+  }
+
   signOut = () => {
     firebase.auth().signOut().then(function () {
       console.log("Sign-out successful");
@@ -91,17 +107,6 @@ class Salao extends React.Component {
       .catch(function (error) {
         console.log("An error happened");
       });
-  }
-
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        console.log('tem user');
-      } else {
-        console.log("User is signed out.");
-      }
-    });
-
   }
 
   cliqueDaCompra = (item) => {
@@ -131,9 +136,7 @@ class Salao extends React.Component {
     });
     let newCompra = this.state.comprar;
     newCompra[itemIndex].quantidade -= 1;
-
     const quantidade = newCompra[itemIndex].quantidade;
-
     if (quantidade > 0) {
       this.setState({
         comprar: newCompra
@@ -144,13 +147,7 @@ class Salao extends React.Component {
         comprar: newCompra
       })
     }
-  }
-
-  handleChange = (event, element) => {
-    const newState = this.state;
-    newState[element] = event.target.value
-    this.setState(newState);
-  }
+  }  
 
   sendOrder = () => {
     let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
@@ -196,78 +193,69 @@ class Salao extends React.Component {
     }, 0);
     return (
       <div>
-          <header className="header-salao Display-flex-space">
-          <div className="width-33"></div>    
-          <div>               
-          <img className="Logo-img-salao width-33" src={logoVert} alt="Logo" />
+        <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
+          <div className="Width-33"></div>
+          <div>
+            <img className="Img-logo-salao Width-33" src={logoVert} alt="Logo" />
           </div>
-          <div className="width-33">
-          <Button className="margin-0" variant="dark" onClick={this.deliver}>ENTREGAS</Button>
-          <Button className="margin-0" variant="dark" onClick={this.signOut}>SAIR</Button>
+          <div className="Width-33">
+            <Button className="Margin-05" variant="dark" onClick={this.deliver}>ENTREGAS</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
-
         </header>
-
         <section className="Display-flex-start">
-          <div className='half-screen'>
-
+          <div className='Half-screen'>
             <Tabs className="Display-flex-center" defaultActiveKey="profile" id="uncontrolled-tab-example">
-              <Tab className="White-border Tab-box white-bg" eventKey="profile" title="CAFÉ DA MANHÃ">
-                {
-
-                  produtos.map((produto, i) => {
-                    return produto.tipo === 'manhã' ?
-                      <Button className="menu-btn" variant="info" key={i}
-                        onClick={() => this.cliqueDaCompra(produto)}>
-                        {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
-                  })
-                }
+              <Tab className="White-border Tab-box White-bg Padding-top-bottom-1" eventKey="profile" title="CAFÉ DA MANHÃ">
+                {produtos.map((produto, i) => {
+                  return produto.tipo === 'manhã' ?
+                    <Button className="Font-bold White-text Margin-05" variant="info" key={i}
+                      onClick={() => this.cliqueDaCompra(produto)}>
+                      {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
+                })}
               </Tab>
-              <Tab className="White-border Tab-box white-bg" eventKey="home" title="TARDE/NOITE">
-                {
-                  produtos.map((produto, i) => {
-                    return produto.tipo === 'dia' ?
-                      <Button className="menu-btn" variant="info" key={i}
-                        onClick={() => this.cliqueDaCompra(produto)}>
-                        {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
-                  })
-                }
+              <Tab className="White-border Tab-box White-bg Padding-top-bottom-1" eventKey="home" title="TARDE/NOITE">
+                {produtos.map((produto, i) => {
+                  return produto.tipo === 'dia' ?
+                    <Button className="Font-bold White-text Margin-05" variant="info" key={i}
+                      onClick={() => this.cliqueDaCompra(produto)}>
+                      {produto.nome}<br></br>R$ {produto.preco}</Button> : console.log()
+                })}
               </Tab>
             </Tabs>
           </div>
-          <div className='half-screen white-bg red-text'>
-            <InputGroup className="mb-3 margin-1">
+          <div className='Half-screen White-bg Padding-top-bottom-1 Red-text Font-bold'>
+            <InputGroup className="mb-3 Margin-13">
               <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1" className="info-bg" >CLIENTE</InputGroup.Text>
+                <InputGroup.Text id="basic-addon1" className="White-text Info-bg Font-bold" >CLIENTE</InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
                 placeholder=""
                 aria-label="client-name"
                 aria-describedby="basic-addon1"
                 value={this.state.client}
-                onChange={(e) => this.handleChange(e, "client")}
-              />
+                onChange={(e) => this.handleChange(e, "client")} />
             </InputGroup>
             <div className="grid-container">
-              <p className="grid-p1 red-border-bottom red-border-right red-border-top">PRODUTO</p>
-              <p className="grid-p2 red-border-bottom red-border-right red-border-top">UN</p>
-              <p className="grid-p3 red-border-bottom red-border-right red-border-top">QTD</p>
-              <p className="grid-p4 red-border-bottom red-border-top">TT</p>
-              <p className="grid-p5 red-border-bottom red-border-top">  </p>
+              <p className="grid-p1 Red-border-bottom Red-border-right Red-border-top">PRODUTO</p>
+              <p className="grid-p2 Red-border-bottom Red-border-right Red-border-top">UN</p>
+              <p className="grid-p3 Red-border-bottom Red-border-right Red-border-top">QTD</p>
+              <p className="grid-p4 Red-border-bottom Red-border-top">TT</p>
+              <p className="grid-p5 Red-border-bottom Red-border-top">  </p>
             </div>
             {this.state.comprar.map((produto, i) => {
-              return <div key={i} className="grid-container red-border">
-                <p className="grid-p1 red-border-bottom red-border-right">{produto.nome}</p>
-                <p className="grid-p2 red-border-bottom red-border-right">R$ {produto.preco}</p>
-                <p className="grid-p3 red-border-bottom red-border-right">{produto.quantidade}</p>
-                <p className="grid-p4 red-border-bottom">R$ {produto.preco * produto.quantidade}</p>
-                <p className="grid-p5 red-border-bottom"><button className="transparent-bg" onClick={() => this.cliqueDeleta(produto)}>
+              return <div key={i} className="grid-container Red-border">
+                <p className="grid-p1 Red-border-bottom Red-border-right">{produto.nome}</p>
+                <p className="grid-p2 Red-border-bottom Red-border-right">R$ {produto.preco}</p>
+                <p className="grid-p3 Red-border-bottom Red-border-right">{produto.quantidade}</p>
+                <p className="grid-p4 Red-border-bottom">R$ {produto.preco * produto.quantidade}</p>
+                <p className="grid-p5 Red-border-bottom"><button className="Transparent-bg" onClick={() => this.cliqueDeleta(produto)}>
                   <img className="Trash-img" src={trash} alt="trash-icon" /></button></p>
               </div>
             })}
             <div className="Display-flex-center">
               <Button variant="dark" onClick={this.sendOrder}>FECHAR PEDIDO</Button>
-              <p className="margin-1">TOTAL: R$ {valorTotal}</p>
+              <p className="Margin-13">TOTAL: R$ {valorTotal}</p>
             </div>
           </div>
         </section>
