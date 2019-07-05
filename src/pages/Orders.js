@@ -4,6 +4,7 @@ import firebase from '../firebaseConfig';
 import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
+const date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
 
 class Orders extends React.Component {
   constructor(props) {
@@ -13,15 +14,7 @@ class Orders extends React.Component {
     };
   }
 
-  componentDidMount() {
-    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-    database.collection("orders").doc(date).get()
-      .then((doc) => {
-        let data = doc.data();
-        const newState = this.state;
-        if (data) { newState.orders = Object.values(data) };
-        this.setState(newState);
-      })
+  componentDidMount() {    
     database.collection("orders").doc(date)
       .onSnapshot((doc) => {
         let data = doc.data();
@@ -33,7 +26,6 @@ class Orders extends React.Component {
 
   signOut = () => {
     firebase.auth().signOut().then(function () {
-      console.log("Sign-out successful");
     }).then(() => {
       this.props.history.push('/');
     })
@@ -42,12 +34,11 @@ class Orders extends React.Component {
       });
   }
 
-  goBack = () => {
+  goBackToKitchen = () => {
     this.props.history.push('/cozinha');
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
@@ -56,7 +47,7 @@ class Orders extends React.Component {
             <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
           <div className="Width-30">
-            <Button className="Margin-05" variant="dark" onClick={this.goBack}>VOLTAR</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.goBackToKitchen}>VOLTAR</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
@@ -69,7 +60,7 @@ class Orders extends React.Component {
               </div>
               {order.order.map((product, i) => {
                 return <div key={i}>
-                  <p>{product.quantidade} {product.nome}</p>
+                  <p>{product.quantity} {product.productName}</p>
                 </div>
               })}
               <p className="Grey-dark-text">PEDIDO {order.ready ? "PRONTO" : "PENDENTE"}

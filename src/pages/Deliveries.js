@@ -4,25 +4,17 @@ import firebase from '../firebaseConfig';
 import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
+const date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
 
 class Deliveries extends React.Component {
   constructor(props) {
     super(props);
-    // this.createUser = this.createUser.bind(this);
     this.state = {
       orders: []
     };
   }
 
   componentDidMount() {
-    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-    database.collection("orders").doc(date).get()
-      .then((doc) => {
-        let data = doc.data();
-        const newState = this.state;
-        if (data) { newState.orders = Object.values(data) };
-        this.setState(newState);
-      })
     database.collection("orders").doc(date)
       .onSnapshot((doc) => {
         let data = doc.data();
@@ -34,7 +26,6 @@ class Deliveries extends React.Component {
 
   signOut = () => {
     firebase.auth().signOut().then(function () {
-      console.log("Sign-out successful");
     }).then(() => {
       this.props.history.push('/');
     })
@@ -43,24 +34,19 @@ class Deliveries extends React.Component {
       });
   }
 
-  cliqueEntregue = (item) => {
-    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-    console.log(item);
-    let orderId = item.id;
-    console.log(orderId);
+  clickDelivered = (item) => {
     database.collection("orders").doc(date).set({
-      [orderId]: {
+      [item.id]: {
         delivered: true
       }
     }, { merge: true })
   }
 
-  goBack = () => {
+  goBackToHall = () => {
     this.props.history.push('/salao');
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
@@ -69,7 +55,7 @@ class Deliveries extends React.Component {
             <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
           <div className="Width-30">
-            <Button className="Margin-05" variant="dark" onClick={this.goBack}>VOLTAR</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.goBackToHall}>VOLTAR</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
@@ -83,10 +69,10 @@ class Deliveries extends React.Component {
                 </div>
                 {order.order.map((product, i) => {
                   return <div key={i}>
-                    <p>{product.quantidade} {product.nome}</p>
+                    <p>{product.quantity} {product.productName}</p>
                   </div>
                 })}
-                <Button className="Margin-05" variant="dark" onClick={() => this.cliqueEntregue(order)}>
+                <Button className="Margin-05" variant="dark" onClick={() => this.clickDelivered(order)}>
                   ENTREGUE</Button>
               </div> : console.log()
           })}

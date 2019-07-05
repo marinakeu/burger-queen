@@ -7,7 +7,7 @@ import { Button, Tab, Tabs, InputGroup, FormControl } from 'react-bootstrap';
 const firebaseAppAuth = firebase.auth();
 const database = firebase.firestore();
 
-let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
+const date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
 
 
 const products = [
@@ -188,7 +188,7 @@ class Hall extends React.Component {
       })
   }
 
-  deliver = () => {
+  goDeliveries = () => {
     this.props.history.push('/entregas');
   }
 
@@ -205,7 +205,7 @@ class Hall extends React.Component {
             <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
           <div className="Width-30">
-            <Button className="Margin-05" variant="dark" onClick={this.deliver}>ENTREGAS</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.goDeliveries}>ENTREGAS</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>

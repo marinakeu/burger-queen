@@ -4,6 +4,7 @@ import logoVert from '../assets/img/logo-vertical.png';
 import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
+const date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
 
 class Kitchen extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class Kitchen extends React.Component {
   }
 
   componentDidMount() {
-    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
     database.collection("orders").doc(date)
       .onSnapshot((doc) => {
         let data = doc.data();
@@ -26,7 +26,6 @@ class Kitchen extends React.Component {
 
   signOut = () => {
     firebase.auth().signOut().then(function () {
-      console.log("Sign-out successful");
     }).then(() => {
       this.props.history.push('/');
     })
@@ -35,24 +34,19 @@ class Kitchen extends React.Component {
       });
   }
 
-  cliquePronto = (item) => {
-    let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-    console.log(item);
-    let orderId = item.id;
-    console.log(orderId);
+  clickReady = (item) => {
     database.collection("orders").doc(date).set({
-      [orderId]: {
+      [item.id]: {
         ready: true
       }
     }, { merge: true })
   }
 
-  allOrders = () => {
+  goAllOrders = () => {
     this.props.history.push('/pedidos');
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
@@ -61,7 +55,7 @@ class Kitchen extends React.Component {
             <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
           <div className="Width-30">
-            <Button className="Margin-05" variant="dark" onClick={this.allOrders}>TODOS OS PEDIDOS</Button>
+            <Button className="Margin-05" variant="dark" onClick={this.goAllOrders}>TODOS OS PEDIDOS</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
@@ -78,7 +72,7 @@ class Kitchen extends React.Component {
                     <p>{product.quantity} {product.productName}</p>
                   </div>
                 })}
-                <Button className="Margin-05" variant="dark" onClick={() => this.cliquePronto(order)}>
+                <Button className="Margin-05" variant="dark" onClick={() => this.clickReady(order)}>
                   PRONTO</Button>
               </div> : console.log()
           })}
