@@ -1,14 +1,13 @@
 import React from 'react';
-import logoVert from '../assets/img/logo-vertical.png';
 import firebase from '../firebaseConfig';
+import logoVert from '../assets/img/logo-vertical.png';
 import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
 
-class Entregas extends React.Component {
+class Kitchen extends React.Component {
   constructor(props) {
     super(props);
-    // this.createUser = this.createUser.bind(this);
     this.state = {
       orders: []
     };
@@ -16,13 +15,6 @@ class Entregas extends React.Component {
 
   componentDidMount() {
     let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-    database.collection("orders").doc(date).get()
-      .then((doc) => {
-        let data = doc.data();
-        const newState = this.state;
-        if (data) { newState.orders = Object.values(data) };
-        this.setState(newState);
-      })
     database.collection("orders").doc(date)
       .onSnapshot((doc) => {
         let data = doc.data();
@@ -43,39 +35,39 @@ class Entregas extends React.Component {
       });
   }
 
-  cliqueEntregue = (item) => {
+  cliquePronto = (item) => {
     let date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
     console.log(item);
     let orderId = item.id;
     console.log(orderId);
     database.collection("orders").doc(date).set({
       [orderId]: {
-        delivered: true
+        ready: true
       }
     }, { merge: true })
   }
 
-  goBack = () => {
-    this.props.history.push('/salao');
+  allOrders = () => {
+    this.props.history.push('/pedidos');
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <div>
         <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
-          <div className="Width-33"></div>
+          <div className="Width-30"></div>
           <div>
-            <img className="Img-logo-salao Width-33" src={logoVert} alt="Logo" />
+            <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
-          <div className="Width-33">
-            <Button className="Margin-05" variant="dark" onClick={this.goBack}>VOLTAR</Button>
+          <div className="Width-30">
+            <Button className="Margin-05" variant="dark" onClick={this.allOrders}>TODOS OS PEDIDOS</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
         <div className="Order-container Red-text Font-bold Margin-05">
           {this.state.orders.map((order, i) => {
-            return order.ready & !order.delivered ?
+            return !order.ready ?
               <div key={i} className="Order White-bg Margin-05">
                 <div className="Display-flex-space Info-bg White-text Font-bold Padding-02">
                   <p>Cliente: {order.clientName}</p>
@@ -83,17 +75,17 @@ class Entregas extends React.Component {
                 </div>
                 {order.order.map((product, i) => {
                   return <div key={i}>
-                    <p>{product.quantidade} {product.nome}</p>
+                    <p>{product.quantity} {product.productName}</p>
                   </div>
                 })}
-                <Button className="Margin-05" variant="dark" onClick={() => this.cliqueEntregue(order)}>
-                  ENTREGUE</Button>
+                <Button className="Margin-05" variant="dark" onClick={() => this.cliquePronto(order)}>
+                  PRONTO</Button>
               </div> : console.log()
           })}
         </div>
-      </div >
+      </div>
     );
   }
 }
 
-export default Entregas;
+export default Kitchen;

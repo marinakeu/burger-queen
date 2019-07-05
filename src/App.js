@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home';
-import Salao from './pages/Salao';
-import Cozinha from './pages/Cozinha';
-import Pedidos from './pages/Pedidos';
-import Entregas from './pages/Entregas';
+import Hall from './pages/Hall';
+import Kitchen from './pages/Kitchen';
+import Orders from './pages/Orders';
+import Deliveries from './pages/Deliveries';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-
 
 function App() {
   return (
@@ -14,10 +13,10 @@ function App() {
       <div>
         <header className="Red-bg Text-align Full-size">
           <Route path="/" exact component={Home} />
-          <Route path="/salao" component={Salao} />
-          <Route path="/cozinha" component={Cozinha} />
-          <Route path="/pedidos" component={Pedidos} />
-          <Route path="/entregas" component={Entregas} />
+          <Route path="/salao" component={Hall } />
+          <Route path="/cozinha" component={Kitchen} />
+          <Route path="/pedidos" component={Orders} />
+          <Route path="/entregas" component={Deliveries} />
         </header>
       </div>
     </Router>

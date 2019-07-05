@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
 
-class Pedidos extends React.Component {
+class Orders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,11 +51,11 @@ class Pedidos extends React.Component {
     return (
       <div>
         <header className="White-bg Blue-border Margin-bottom-1 Display-flex-space">
-          <div className="Width-33"></div>
+          <div className="Width-30"></div>
           <div>
-            <img className="Img-logo-salao Width-33" src={logoVert} alt="Logo" />
+            <img className="Img-logo-salao Width-30" src={logoVert} alt="Logo" />
           </div>
-          <div className="Width-33">
+          <div className="Width-30">
             <Button className="Margin-05" variant="dark" onClick={this.goBack}>VOLTAR</Button>
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
@@ -83,4 +83,4 @@ class Pedidos extends React.Component {
   }
 }
 
-export default Pedidos;
+export default Orders;

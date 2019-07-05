@@ -31,23 +31,18 @@ class Home extends React.Component {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
       this.props.createUserWithEmailAndPassword(this.state.emailSignUp, this.state.passwordSignUp, this.state.name)
         .then(resp => {
-
           if (resp) {
             database.collection("users").doc(this.props.user.uid).set({
               name: this.state.name,
               role: this.state.role
             })
-            .then(() => {
-              if (this.state.role === "Salão") {
-                this.props.history.push('/salao');
-              } else {
-                this.props.history.push('/cozinha');
-              }
-            })            
+              .then(() => {
+                this.goToUserPage(this.state.role);
+              })
           }
         })
     } else {
-      alert('insira');
+      alert('Por favor insira todos os dados');
     }
   };
 
@@ -57,22 +52,36 @@ class Home extends React.Component {
         if (this.props.user) {
           database.collection("users").doc(this.props.user.uid).get()
             .then((doc) => {
-              let role = doc.data().role;
-              if (role === "Salão") {
-                this.props.history.push('/salao');
-              } else {
-                this.props.history.push('/cozinha');
-              }
+              const role = doc.data().role;
+              this.goToUserPage(role);
             })
         };
       });
   };
 
+  goToUserPage = (role) => {
+    if (role === "Salão") {
+      this.props.history.push('/salao');
+    } else {
+      this.props.history.push('/cozinha');
+    }
+  }
+
   render() {
+
     if(this.props.error) {
       alert(this.props.error);
     }
-    
+
+    // if (!this.alertPresent) {
+    //   this.alertPresent = true;
+    //   if (this.props.error) {
+    //     alert(this.props.error, [{ text: 'OK', onPress: () => { this.alertPresent = false } }], { cancelable: false });
+    //   } else {
+    //     this.alertPresent = false;
+    //   }
+    // }
+
     return (
       <div>
         <Container className="Text-align Display-flex-center Full-size">
