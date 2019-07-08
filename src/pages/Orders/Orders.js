@@ -1,6 +1,7 @@
 import React from 'react';
-import logoVert from '../assets/img/logo-vertical.png';
-import firebase from '../firebaseConfig';
+import './Orders.css';
+import logoVert from '../../assets/img/logo-vertical.png';
+import firebase from '../../firebaseConfig';
 import { Button } from 'react-bootstrap';
 
 const database = firebase.firestore();
