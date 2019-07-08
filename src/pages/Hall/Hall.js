@@ -1,7 +1,8 @@
 import React from 'react';
-import firebase from '../firebaseConfig';
-import logoVert from '../assets/img/logo-vertical.png';
-import trash from '../assets/img/trash.png'
+import './Hall.css';
+import firebase from '../../firebaseConfig';
+import logoVert from '../../assets/img/logo-vertical.png';
+import trash from '../../assets/img/trash.png'
 import { Button, Tab, Tabs, InputGroup, FormControl } from 'react-bootstrap';
 
 const firebaseAppAuth = firebase.auth();
@@ -212,7 +213,7 @@ class Hall extends React.Component {
         <section className="Display-flex-start">
           <div className='Half-screen'>
             <Tabs className="Display-flex-center" defaultActiveKey="profile" id="uncontrolled-tab-example">
-              <Tab className="White-border Tab-box White-bg Padding-top-bottom-1" eventKey="profile" title="CAFÉ DA MANHÃ">
+              <Tab className="White-border White-bg Padding-top-bottom-1" eventKey="profile" title="CAFÉ DA MANHÃ">
                 {products.map((product, i) => {
                   return product.productType === 'manhã' ?
                     <Button className="Font-bold White-text Margin-05" variant="info" key={i}
@@ -220,7 +221,7 @@ class Hall extends React.Component {
                       {product.productName}<br></br>R$ {product.productPrice}</Button> : console.log()
                 })}
               </Tab>
-              <Tab className="White-border Tab-box White-bg Padding-top-bottom-1" eventKey="home" title="TARDE/NOITE">
+              <Tab className="White-border White-bg Padding-top-bottom-1" eventKey="home" title="TARDE/NOITE">
                 {products.map((product, i) => {
                   return product.productType === 'dia' ?
                     <Button className="Font-bold White-text Margin-05" variant="info" key={i}
@@ -231,7 +232,7 @@ class Hall extends React.Component {
             </Tabs>
           </div>
           <div className='Half-screen White-bg Padding-top-bottom-1 Red-text Font-bold'>
-            <InputGroup className="mb-3 Margin-13">
+            <InputGroup className="Margin-13">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1" className="White-text Info-bg Font-bold" >CLIENTE</InputGroup.Text>
               </InputGroup.Prepend>

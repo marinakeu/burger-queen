@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home/Home';
-import Hall from './pages/Hall';
+import Hall from './pages/Hall/Hall';
 import Kitchen from './pages/Kitchen';
 import Orders from './pages/Orders';
 import Deliveries from './pages/Deliveries';
