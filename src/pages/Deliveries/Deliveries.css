@@ -1,0 +1,79 @@
+.Blue-border {
+  border-bottom: 3px solid #17a2b7;
+}
+
+.Display-flex-space {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.Font-bold,
+a {
+  font-weight: bold;
+}
+
+.Font-size,
+a {
+  font-size: 1.2rem;
+} 
+
+.Info-bg {
+  background-color: #17a2b7;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.Img-logo-salao {
+  width: 20rem;
+  margin: 0.8rem;
+  border-radius: 5%;
+}
+
+.Margin-05 {
+  margin: 0.5rem;
+}
+
+.Margin-bottom-1 {
+  margin-bottom: 1rem; 
+}
+
+.Order {
+  flex-flow: column;
+  width: 23%;
+  border-radius: 2%
+}
+
+.Order-container {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.Order p {
+  margin: 0;
+  padding: 0.4rem;
+}
+
+.Padding-02 {
+  padding: 0.2rem;
+}
+
+.Red-text {
+  color: #f45c5b;
+}
+
+.Width-30 {
+  width: 30vw;
+}
+
+.White-bg {
+  background-color: white;
+}
+
+.White-text,
+a {
+  color: white;
+}

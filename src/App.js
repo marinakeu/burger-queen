@@ -1,24 +1,21 @@
 import React from 'react';
 import './App.css';
-import Login from './pages/Login';
-import Salao from './pages/Salao';
-import Cozinha from './pages/Cozinha';
-import Pedidos from './pages/Pedidos';
-import Entregas from './pages/Entregas';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-
+import Home from './pages/Home/Home';
+import Hall from './pages/Hall/Hall';
+import Kitchen from './pages/Kitchen/Kitchen';
+import Orders from './pages/Orders/Orders';
+import Deliveries from './pages/Deliveries/Deliveries';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
-      <div>
-        <header className="App-header">
-          <Route path="/" exact component={Login} />
-          <Route path="/salao" component={Salao} />
-          <Route path="/cozinha" component={Cozinha} />
-          <Route path="/pedidos" component={Pedidos} />
-          <Route path="/entregas" component={Entregas} />
-        </header>
+      <div className="Red-bg Text-align Full-size">
+        <Route path="/" exact component={Home} />
+        <Route path="/salao" component={Hall} />
+        <Route path="/cozinha" component={Kitchen} />
+        <Route path="/pedidos" component={Orders} />
+        <Route path="/entregas" component={Deliveries} />
       </div>
     </Router>
   );

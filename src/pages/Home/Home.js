@@ -1,13 +1,14 @@
 import React from 'react';
-import logo from '../assets/img/logo.png';
-import firebase from '../firebaseConfig';
+import './Home.css';
+import logo from '../../assets/img/logo.png';
+import firebase from '../../firebaseConfig';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import { Button, Form, Container, Tabs, Tab } from 'react-bootstrap';
 
 const firebaseAppAuth = firebase.auth();
 const database = firebase.firestore();
 
-class Login extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.createUser = this.createUser.bind(this);
@@ -31,23 +32,18 @@ class Login extends React.Component {
     if (this.state.role === "Salão" || this.state.role === "Cozinha") {
       this.props.createUserWithEmailAndPassword(this.state.emailSignUp, this.state.passwordSignUp, this.state.name)
         .then(resp => {
-
           if (resp) {
             database.collection("users").doc(this.props.user.uid).set({
               name: this.state.name,
               role: this.state.role
             })
-            .then(() => {
-              if (this.state.role === "Salão") {
-                this.props.history.push('/salao');
-              } else {
-                this.props.history.push('/cozinha');
-              }
-            })            
+              .then(() => {
+                this.goToUserPage(this.state.role);
+              })
           }
         })
     } else {
-      alert('insira');
+      alert('Por favor insira todos os dados');
     }
   };
 
@@ -57,29 +53,33 @@ class Login extends React.Component {
         if (this.props.user) {
           database.collection("users").doc(this.props.user.uid).get()
             .then((doc) => {
-              let role = doc.data().role;
-              if (role === "Salão") {
-                this.props.history.push('/salao');
-              } else {
-                this.props.history.push('/cozinha');
-              }
+              const role = doc.data().role;
+              this.goToUserPage(role);
             })
         };
       });
   };
 
+  goToUserPage = (role) => {
+    if (role === "Salão") {
+      this.props.history.push('/salao');
+    } else {
+      this.props.history.push('/cozinha');
+    }
+  }
+
   render() {
-    if(this.props.error) {
+    if (this.props.error) {
       alert(this.props.error);
     }
-    
+
     return (
       <div>
         <Container className="Text-align Display-flex-center Full-size">
-          <img className="Logo-img" src={logo} alt="Logo" />
+          <img className="Img-logo" src={logo} alt="Logo" />
           <div>
             <Tabs className="Display-flex-center" defaultActiveKey="profile" id="uncontrolled-tab-example">
-              <Tab className="White-border padding-3" eventKey="profile" title="LOGIN">
+              <Tab className="White-border Padding-3" eventKey="profile" title="LOGIN">
                 <Form>
                   <Form.Group controlId="formBasicEmailLogin">
                     <Form.Control size="lg" value={this.state.email} type="email"
@@ -96,7 +96,7 @@ class Login extends React.Component {
                   <Button variant="dark" size="lg" onClick={this.signIn}>Entrar</Button>
                 </div>
               </Tab>
-              <Tab className="White-border padding-3" eventKey="home" title="CADASTRO">
+              <Tab className="White-border Padding-3" eventKey="home" title="CADASTRO">
                 <Form>
                   <Form.Group controlId="formBasicNameSignUp">
                     <Form.Control size="lg" value={this.state.name} type="text"
@@ -137,4 +137,4 @@ class Login extends React.Component {
 
 export default withFirebaseAuth({
   firebaseAppAuth,
-})(Login);
+})(Home);
