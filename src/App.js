@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home/Home';
 import Hall from './pages/Hall/Hall';
-import Kitchen from './pages/Kitchen';
+import Kitchen from './pages/Kitchen/Kitchen';
 import Orders from './pages/Orders';
 import Deliveries from './pages/Deliveries';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
