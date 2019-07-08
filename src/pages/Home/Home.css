@@ -1,0 +1,45 @@
+.Display-flex-center {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;  
+}
+
+a {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.Full-size {
+  height: 100vh;
+  width: 100vw;
+}
+
+.Grey-text {
+  color: grey;
+}
+
+.Img-logo {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.nav-tabs .nav-link.active {
+  color: #f45c5b;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.Padding-3 {
+  padding: 3rem;
+}
+
+.Text-align {
+  text-align: center;
+}
+
+.White-border{
+  border: white 1px solid;
+}

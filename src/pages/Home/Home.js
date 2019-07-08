@@ -1,6 +1,7 @@
 import React from 'react';
-import logo from '../assets/img/logo.png';
-import firebase from '../firebaseConfig';
+import './Home.css';
+import logo from '../../assets/img/logo.png';
+import firebase from '../../firebaseConfig';
 import withFirebaseAuth from 'react-with-firebase-auth';
 import { Button, Form, Container, Tabs, Tab } from 'react-bootstrap';
 
@@ -68,19 +69,9 @@ class Home extends React.Component {
   }
 
   render() {
-
     if(this.props.error) {
       alert(this.props.error);
     }
-
-    // if (!this.alertPresent) {
-    //   this.alertPresent = true;
-    //   if (this.props.error) {
-    //     alert(this.props.error, [{ text: 'OK', onPress: () => { this.alertPresent = false } }], { cancelable: false });
-    //   } else {
-    //     this.alertPresent = false;
-    //   }
-    // }
 
     return (
       <div>

@@ -1,4 +1,4 @@
-.Blue-border {
+/* .Blue-border {
   border-bottom: 3px solid #17a2b7;
 }
 
@@ -28,14 +28,14 @@ a {
 .Font-size,
 a {
   font-size: 1.2rem;
-}
+} */
 
 .Full-size {
   height: 100vh;
   width: 100vw;
 }
 
-.Grey-text {
+/* .Grey-text {
   color: grey;
 }
 
@@ -158,13 +158,13 @@ a {
 .Padding-top-bottom-1 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
+} */
 
 .Red-bg {
   background-color: #f45c5b;
 }
 
-.Red-border-bottom{
+/* .Red-border-bottom{
   margin: 0rem;
   border-bottom: 1px solid #f45c5b;
 }
@@ -188,13 +188,13 @@ a {
 .Transparent-bg {
   background-color: transparent;
   border: none;
-}
+} */
 
 .Text-align {
   text-align: center;
 }
 
-.Width-30 {
+/* .Width-30 {
   width: 30vw;
 }
 
@@ -209,4 +209,4 @@ a {
 .White-text,
 a {
   color: white;
-}
+} */

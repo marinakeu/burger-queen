@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Hall from './pages/Hall';
 import Kitchen from './pages/Kitchen';
 import Orders from './pages/Orders';
