@@ -4,7 +4,7 @@ import Home from './pages/Home/Home';
 import Hall from './pages/Hall/Hall';
 import Kitchen from './pages/Kitchen/Kitchen';
 import Orders from './pages/Orders/Orders';
-import Deliveries from './pages/Deliveries';
+import Deliveries from './pages/Deliveries/Deliveries';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 function App() {
