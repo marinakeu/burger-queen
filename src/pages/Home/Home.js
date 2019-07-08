@@ -69,7 +69,7 @@ class Home extends React.Component {
   }
 
   render() {
-    if(this.props.error) {
+    if (this.props.error) {
       alert(this.props.error);
     }
 

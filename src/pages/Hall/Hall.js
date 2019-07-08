@@ -7,9 +7,7 @@ import { Button, Tab, Tabs, InputGroup, FormControl } from 'react-bootstrap';
 
 const firebaseAppAuth = firebase.auth();
 const database = firebase.firestore();
-
 const date = new Date().getFullYear() + "." + (new Date().getMonth() + 1) + "." + new Date().getDate();
-
 
 const products = [
   {
@@ -210,8 +208,8 @@ class Hall extends React.Component {
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
-        <section className="Display-flex-start">
-          <div className='Half-screen'>
+        <main className="Display-flex-start">
+          <section className='Half-screen'>
             <Tabs className="Display-flex-center" defaultActiveKey="profile" id="uncontrolled-tab-example">
               <Tab className="White-border White-bg Padding-top-bottom-1" eventKey="profile" title="CAFÉ DA MANHÃ">
                 {products.map((product, i) => {
@@ -230,8 +228,8 @@ class Hall extends React.Component {
                 })}
               </Tab>
             </Tabs>
-          </div>
-          <div className='Half-screen White-bg Padding-top-bottom-1 Red-text Font-bold'>
+          </section>
+          <section className='Half-screen White-bg Padding-top-bottom-1 Red-text Font-bold'>
             <InputGroup className="Margin-13">
               <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1" className="White-text Info-bg Font-bold" >CLIENTE</InputGroup.Text>
@@ -264,8 +262,8 @@ class Hall extends React.Component {
               <Button variant="dark" onClick={this.sendOrder}>FECHAR PEDIDO</Button>
               <p className="Margin-13">TOTAL: R$ {totalAmount}</p>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
       </div>
     );
   }

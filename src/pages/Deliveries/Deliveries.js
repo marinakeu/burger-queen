@@ -60,14 +60,14 @@ class Deliveries extends React.Component {
             <Button className="Margin-05" variant="dark" onClick={this.signOut}>SAIR</Button>
           </div>
         </header>
-        <div className="Order-container Red-text Font-bold Margin-05">
+        <main className="Order-container Red-text Font-bold Margin-05">
           {this.state.orders.map((order, i) => {
             return order.ready & !order.delivered ?
-              <div key={i} className="Order White-bg Margin-05">
-                <div className="Display-flex-space Info-bg White-text Font-bold Padding-02">
+              <section key={i} className="Order White-bg Margin-05">
+                <header className="Display-flex-space Info-bg White-text Font-bold Padding-02">
                   <p>Cliente: {order.clientName}</p>
                   <p>Nº: {order.orderNumber}</p>
-                </div>
+                </header>
                 {order.order.map((product, i) => {
                   return <div key={i}>
                     <p>{product.quantity} {product.productName}</p>
@@ -75,10 +75,10 @@ class Deliveries extends React.Component {
                 })}
                 <Button className="Margin-05" variant="dark" onClick={() => this.clickDelivered(order)}>
                   ENTREGUE</Button>
-              </div> : console.log()
+              </section> : console.log()
           })}
-        </div>
-      </div >
+        </main>
+      </div>
     );
   }
 }
